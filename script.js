@@ -298,14 +298,68 @@ const fetchData = async (lat, lon) => {
     console.log(searchRespose);
     console.log('air condition');
     console.log(airquality);
-    
-    const fiveDays = responseFiveDays.list.filter(item =>item.dt_txt.includes("12:00:00"));
 
+
+    const today = new Date()
+    const date = today.getDate();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const Today = year+'-'+ month+'-'+ date;
+    
+    const fiveDays = responseFiveDays.list.filter(item =>item.dt_txt);
+    const cardd = document.querySelector('.Fday-card');
     fiveDays.map(data =>{
-       //for rendering later  dont forget swaru
+       //for rendering later
+       cardd.innerHTML+=`
+         <div class="weather-card">
+                       <div class="top-side"> 
+                        <span class="timeandcondition">
+                            <span id="time">${data.dt_txt}</span>
+                            <span id="description">${data.weather[0].description}</span>
+                        </span>
+                        <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="" id="today-icon">
+                       </div> <!--top side end-->
+                       <div class="bottom-side">
+                        <span class="side-data">
+                            <span class="wind">
+                                <img src="./assets/wind.png" alt="" style="width:20px;">
+                                <span id="wind-speed">${data.wind.speed}m/s</span>
+                            </span>
+                            <span id="rain"><i class="fa-solid fa-cloud-rain"></i> ${Math.floor(data.pop * 100)}%</span>
+                        </span>
+                        <span id="temp">${Math.floor((data.main.temp - 273.15).toFixed(1))}°</span>
+                       </div>
+                    </div> 
+                    `
+                   })    
 
-    })    
+    //today full e=wewathe data filtering
+    const todayAll = responseFiveDays.list.filter(item => item.dt_txt.includes(Today));  
+    const card = document.querySelector('.today-card')
+    todayAll.map(data=>{
     
+      card.innerHTML+=`
+         <div class="weather-card">
+                       <div class="top-side"> 
+                        <span class="timeandcondition">
+                            <span id="time">${data.dt_txt}</span>
+                            <span id="description">${data.weather[0].description}</span>
+                        </span>
+                        <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="" id="today-icon">
+                       </div> <!--top side end-->
+                       <div class="bottom-side">
+                        <span class="side-data">
+                            <span class="wind">
+                                <img src="./assets/wind.png" alt="" style="width:20px;">
+                                <span id="wind-speed">${data.wind.speed}m/s</span>
+                            </span>
+                            <span id="rain"><i class="fa-solid fa-cloud-rain"></i>${Math.floor(data.pop * 100)}%</span>
+                        </span>
+                        <span id="temp">${Math.floor((data.main.temp - 273.15).toFixed(1))}°</span>
+                       </div>
+                    </div> 
+                    `
+    })
 
     if (response.cod != 200) {
       alert(`!${response.cod} weather data unavailable`);
@@ -488,9 +542,7 @@ prev.addEventListener('click', () => {
     renderCalendar();
 });
 
-
 //mobile  detection
-
 function isPhone() {
     if (navigator.userAgentData) {
         if (navigator.userAgentData.mobile) {
