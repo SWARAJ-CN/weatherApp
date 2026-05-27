@@ -24,6 +24,12 @@
 //https://openweathermap.org/img/wn/ICON_CODE@2x.png
 //for map : https://www.openstreetmap.org/export/embed.html?layer=mapnik&marker=${searchLatitude},${searchLongitude}
 //------------------
+//offlinedetection
+setInterval(()=>{
+if(!navigator.onLine){
+  window.location.replace('./noInternet.html')
+}
+},500)
 
 const windDirections = {
   0: "N",
@@ -482,14 +488,11 @@ prev.addEventListener('click', () => {
     renderCalendar();
 });
 
-//online checking
-let isOnline = navigator.onLine
 
 //mobile  detection
-
 function getMobileOS() {
   const deviceDetection = navigator.userAgent;
-  
+
   if (/android/i.test(deviceDetection)) {
     return "Android";
   }
@@ -499,10 +502,11 @@ function getMobileOS() {
   return "Desktop/Other";
 }
 
-if(getMobileOS()=='Android' || getMobileOS()=='iOS'){
-  document.querySelector('.main').style.display.none;
+if(getMobileOS()==='Android' || getMobileOS()==='iOS'){
   window.location.replace('/mobileDetection.html')
 } 
+
+
 
 
 
