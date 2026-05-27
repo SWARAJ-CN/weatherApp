@@ -24,6 +24,7 @@
 //https://openweathermap.org/img/wn/ICON_CODE@2x.png
 //for map : https://www.openstreetmap.org/export/embed.html?layer=mapnik&marker=${searchLatitude},${searchLongitude}
 //------------------
+
 //offlinedetection
 setInterval(()=>{
 if(!navigator.onLine){
@@ -207,7 +208,7 @@ let usersearch = null;
 
 async function performSearch() {
     usersearch = document.getElementById('search-box').value;
-    console.log(document.getElementById('search-box').value);
+    // console.log(document.getElementById('search-box').value);
     
     if (!usersearch) {
         return;
@@ -216,7 +217,7 @@ async function performSearch() {
     const coords = await fetchCoord();
 
     if (!coords) {
-        console.log("No coords found");
+        // console.log("No coords found");
         alert('Please check your spelling');
         window.location.reload();
         return;
@@ -231,8 +232,8 @@ async function performSearch() {
      await fetchData(searchLatitude, searchLongitude);
     }
 }
-document.getElementById('search').addEventListener('click', performSearch);
-document.getElementById('search-box').addEventListener('keydown', async (evt) => {
+  document.getElementById('search').addEventListener('click', performSearch);
+  document.getElementById('search-box').addEventListener('keydown', async (evt) => {
     if (evt.key === 'Enter') {
         evt.preventDefault(); 
         await performSearch();
@@ -251,9 +252,9 @@ const fetchCoord = async () => {
      document.getElementById('search-result').style.display='flex';
      document.getElementById("full-name").textContent = mapData.name;
 
-     console.log('mapdata');
+    //  console.log('mapdata');
      
-     console.log(mapResponse);
+    //  console.log(mapResponse);
 
    if (mapResponse.length > 0) {
 
@@ -296,11 +297,12 @@ const fetchData = async (lat, lon) => {
     const searchRespose = await searchData.json()
     const responseFiveDays = await fiveDayData.json()
     const airquality = await airPolution.json()
-    console.log('five days data full data');
-    console.log(responseFiveDays);
-    console.log(searchRespose);
-    console.log('air condition');
-    console.log(airquality);
+
+    // console.log('five days data full data');
+    // console.log(responseFiveDays);
+    // console.log(searchRespose);
+    // console.log('air condition');
+    // console.log(airquality);
 
 
     const today = new Date()
@@ -336,11 +338,11 @@ const fetchData = async (lat, lon) => {
                     `
                    })    
 
-    //today full e=wewathe data filtering
-    const todayAll = responseFiveDays.list.filter(item => item.dt_txt.includes(Today));  
-    const card = document.querySelector('.today-card')
-    todayAll.map(data=>{
-    
+                //today full e=wewathe data filtering
+                const todayAll = responseFiveDays.list.filter(item => item.dt_txt.includes(Today));  
+                const card = document.querySelector('.today-card')
+                todayAll.map(data=>{
+                
       card.innerHTML+=`
          <div class="weather-card">
                        <div class="top-side"> 
@@ -368,16 +370,16 @@ const fetchData = async (lat, lon) => {
       alert(`!${response.cod} weather data unavailable`);
       return;
     }
-    console.log(response);
-    console.log(response.name);
+    // console.log(response);
+    // console.log(response.name);
    
 
     const tempC = Math.floor(response.main.temp - 273.15); // c
 
     const tempF = Math.floor((tempC * 9) / 5 + 32); // f
 
-    console.log(tempC);
-    console.log(tempF);
+    // console.log(tempC);
+    // console.log(tempF);
 
     const API_DATA = {
       state: searchRespose[0].state, //pushed
@@ -462,7 +464,7 @@ const fetchData = async (lat, lon) => {
     } else {
         document.getElementById('hero-img').src = '/assets/default.png'
     }
-    console.log(response.weather);
+    // console.log(response.weather);
     
   } catch (error) {
     console.log(error);
@@ -594,6 +596,12 @@ scrollContainers.forEach((container) => {
     }
   });
 });
+
+console.log('Crafted with ❤️ in Kakkanad,Kerala');
+
+console.log('Have a nice day 😊');
+
+
 
 
 
