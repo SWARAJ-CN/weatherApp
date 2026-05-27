@@ -492,15 +492,12 @@ prev.addEventListener('click', () => {
 //mobile  detection
 
 function isPhone() {
-
-    // modern detection
     if (navigator.userAgentData) {
         if (navigator.userAgentData.mobile) {
             return true;
         }
     }
 
-    // fallback
     const ua = navigator.userAgent.toLowerCase();
 
     const mobileUA = /android|iphone|ipad|ipod/i.test(ua);
