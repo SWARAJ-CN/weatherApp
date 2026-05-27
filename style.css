@@ -742,19 +742,3 @@ body {
   }
 }
 
-@media screen and (min-width: 1400px) {
-  .main {
-    max-width: 1600px;
-    margin: 0 auto; 
-    overflow-y: scroll;
-  }
-  .left-side {
-    min-width: 0; 
-    overflow: hidden; 
-  }
-
-  .today-card, .Fday-card {
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-}
