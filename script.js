@@ -204,8 +204,8 @@ let searchName = null;
 let searchPlace = null;
 let usersearch = null;
 
-document.getElementById('search').addEventListener('click', async () => {
 
+async function performSearch() {
     usersearch = document.getElementById('search-box').value;
     console.log(document.getElementById('search-box').value);
     
@@ -217,11 +217,10 @@ document.getElementById('search').addEventListener('click', async () => {
 
     if (!coords) {
         console.log("No coords found");
-        alert('Please check your spelling')
-        window.location.reload()
+        alert('Please check your spelling');
+        window.location.reload();
         return;
     }
-
     searchLatitude = coords.searchLat;
     searchLongitude = coords.searchLon;
     searchName = coords.searchName;
@@ -231,12 +230,16 @@ document.getElementById('search').addEventListener('click', async () => {
     if(usersearch!=null){
      await fetchData(searchLatitude, searchLongitude);
     }
-
+}
+document.getElementById('search').addEventListener('click', performSearch);
+document.getElementById('search-box').addEventListener('keydown', async (evt) => {
+    if (evt.key === 'Enter') {
+        evt.preventDefault(); 
+        await performSearch();
+    }
 });
 
-
 //open map api for finding coords from search query
-
 const fetchCoord = async () => {
   try {
 
@@ -568,7 +571,29 @@ if (isPhone()) {
 }
 
 
+//scroll
 
+const scrollContainers = document.querySelectorAll('.today-card, .Fday-card');
+scrollContainers.forEach((container) => {
+  container.addEventListener('wheel', (evt) => {
+    evt.preventDefault();
+    container.scrollLeft += evt.deltaY;
+  }, { passive: false });
+
+  container.setAttribute('tabindex', '0'); 
+
+  container.addEventListener('keydown', (evt) => {
+    const scrollAmount = 100; 
+
+    if (evt.key === 'ArrowRight') {
+      evt.preventDefault(); 
+      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    } else if (evt.key === 'ArrowLeft') {
+      evt.preventDefault();
+      container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    }
+  });
+});
 
 
 
