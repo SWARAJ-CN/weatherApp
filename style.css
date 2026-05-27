@@ -675,43 +675,38 @@ body {
   line-height: 1;
 }
 
-/* ==========================================================================
-   NEW ADDITIONS: ADVANCED MEDIA QUERIES FOR FULL RESPONSIVENESS
-   ========================================================================== */
-
-/* Tablet & Smaller Desktop Adjustments (Max Width: 1024px) */
 @media screen and (max-width: 1024px) {
   .speration-div {
-    height: auto; /* Let content determine the height instead of fixing dvh */
-    flex-direction: column; /* Stack left-side and right-side elements vertically */
+    height: auto;
+    flex-direction: column;
   }
 
   .left-side, .right-side {
-    width: 100%; /* Take full width when stacked */
+    width: 100%;
     height: auto;
   }
   
   .map {
-    height: 400px; /* Give the map frame an explicitly beautiful viewport height on layout stack */
+    height: 400px; 
   }
 }
 
-/* Mobile Screen Adjustments (Max Width: 768px) */
+
 @media screen and (max-width: 768px) {
   .top-section {
-    flex-direction: column; /* Stack branding title and search bar */
+    flex-direction: column; 
     gap: 16px;
     align-items: flex-start;
     padding: 16px;
   }
 
   .search-section {
-    width: 100%; /* Make search container stretch full-width on mobile */
+    width: 100%; 
     justify-content: space-between;
   }
 
   .search-box {
-    width: 100%; /* Allow input box to dynamically shrink/grow safely */
+    width: 100%; 
     flex: 1;
   }
 
@@ -721,16 +716,15 @@ body {
   }
 
   .cel {
-    font-size: 7rem; /* Reduce the large background ambient Celsius text size slightly so it fits mobile */
+    font-size: 7rem; 
     right: 20px;
   }
 
   .image-container {
-    height: 320px; /* Shorten the hero display background container slightly on phones */
+    height: 320px; 
   }
 }
 
-/* Extra Small Screens (Max Width: 480px) */
 @media screen and (max-width: 480px) {
   .weather-from, .weather-condition, .wind-condition {
     padding-left: 15px;
@@ -739,11 +733,27 @@ body {
   }
   
   .weather-location, .weather-country, .weather-condition, .wind-speed, .hpa-sts {
-    padding: 8px 16px; /* Trim inner element paddings slightly to avoid horizontal bleed out */
+    padding: 8px 16px; 
     font-size: 0.9rem;
   }
 
   .cel {
-    font-size: 5.5rem; /* Make the stroke absolute Celsius font cleanly readable on small viewports */
+    font-size: 5.5rem;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .main {
+    max-width: 1600px;
+    margin: 0 auto; 
+  }
+  .left-side {
+    min-width: 0; 
+    overflow: hidden; 
+  }
+
+  .today-card, .Fday-card {
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }
