@@ -38,6 +38,7 @@ body {
   padding: 24px 20px; 
   width: 100%;
   color: var(--text-main);
+  gap: 20px;
 }
 
 .top-text {
@@ -46,6 +47,7 @@ body {
   gap: 4px; 
   align-items: flex-start;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .app-name {
@@ -78,6 +80,7 @@ body {
   
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .search-section:focus-within {
@@ -112,23 +115,24 @@ body {
   display: flex;
   flex-direction: row;
   gap: 20px;
-  flex-top: 1;
-  height: calc(100dvh - 90px);
+  min-height: calc(100vh - 90px);
+  height: auto;
   padding: 0 20px 20px 20px;
 }
 
 .left-side {
-  height: 100%;
+  height: auto;
   width: 70%;
   border: dashed 1px rgba(128, 128, 128, 0.273);
   border-radius: 8px;
   padding: 5px;
+  min-width: 0; /* Crucial structural fix: lets flexible children elements compress effectively */
 }
 .wind-speed {
   margin-left: 20px;
 }
 .right-side {
-  height: 100%;
+  height: auto;
   width: 30%;
   border: 1px dashed rgba(128, 128, 128, 0.4);
   border-radius: 18px;
@@ -170,6 +174,7 @@ body {
   height: 100%;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  overflow-y: auto; /* Fallback protective padding rule for very short vertical landscape heights */
 }
 .weather-from {
   display: flex;
@@ -178,6 +183,7 @@ body {
   padding-left: 30px;
   padding-top: 30px;
   font-weight: 800;
+  flex-wrap: wrap;
 }
 
 .weather-condition {
@@ -190,6 +196,7 @@ body {
   font-weight: 800;
   width: fit-content;
   margin-left: 20px;
+  flex-wrap: wrap;
 }
 .weather-from img {
   width: 30px;
@@ -232,6 +239,7 @@ body {
   gap: 25px;
   align-items: center;
   margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 .wind-speed {
@@ -502,7 +510,7 @@ body {
 
 .map {
   width: 100%;
-  height: 100%;
+  height: 400px; /* Fixed sizing assignment prevents layout breaking inside grid elements */
   overflow: hidden;
   border-radius: 18px;
   position: relative;
@@ -540,13 +548,13 @@ body {
   padding: 10px;
   border-radius: 15px;
   margin-top: 20px;
-  overflow-x: scroll;
+  overflow-x: auto; /* Handles safe scroll bounds across devices */
    -webkit-overflow-scrolling: touch;
    scroll-behavior: smooth;
    outline: none;
 }
 .Fday-card::-webkit-scrollbar {
-  height: 2px; 
+  height: 4px; 
   display: block;
 }
 
@@ -565,7 +573,7 @@ body {
   background-color: rgba(255, 255, 255, 0.35); 
 }
 .today-card::-webkit-scrollbar {
-  height: 2px; 
+  height: 4px; 
   display: block; 
 }
 
@@ -675,6 +683,26 @@ body {
   line-height: 1;
 }
 
+/* ==========================================================================
+   ADVANCED RESPONSIVE DESIGN ADJUSTMENTS
+   ========================================================================== */
+
+/* Ultra Wide Screen Layout Management Wrap */
+@media screen and (min-width: 1600px) {
+  .main {
+    max-width: 1550px;
+    margin: 0 auto;
+  }
+}
+
+/* Large Displays / Standard Laptops (Max Width: 1200px) */
+@media screen and (max-width: 1200px) {
+  .search-box {
+    width: 260px;
+  }
+}
+
+/* Tablet & Nested Workspace Viewports (Max Width: 1024px) */
 @media screen and (max-width: 1024px) {
   .speration-div {
     height: auto;
@@ -686,12 +714,24 @@ body {
     height: auto;
   }
   
-  .map {
-    height: 400px; 
+  .search-box {
+    width: 350px;
   }
 }
 
+/* Intermediate Tablet Breaks (Max Width: 900px) */
+@media screen and (max-width: 900px) {
+  .top-section {
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .name-full {
+    order: 3;
+    width: 100%;
+  }
+}
 
+/* Mobile Screens (Max Width: 768px) */
 @media screen and (max-width: 768px) {
   .top-section {
     flex-direction: column; 
@@ -725,6 +765,7 @@ body {
   }
 }
 
+/* Compact Smartphones (Max Width: 480px) */
 @media screen and (max-width: 480px) {
   .weather-from, .weather-condition, .wind-condition {
     padding-left: 15px;
@@ -738,7 +779,6 @@ body {
   }
 
   .cel {
-    font-size: 5.5rem;
+    font-size: 4.5rem;
   }
 }
-
