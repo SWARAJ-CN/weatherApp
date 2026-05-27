@@ -121,7 +121,14 @@
         
         <p>We're sorry, but this platform is currently optimized exclusively for desktop screens. Please switch to a laptop or desktop computer for the best experience.</p>
         
-        <button class="btn" onclick="window.location.replace('./index.html')">ReCheck</button>
+        <button class="btn" onclick="window.location.reload()">ReCheck</button>
     </div>
 </body>
+<script>
+    setInterval(()=>{
+        if(!navigator.onLine){
+        window.location.replace('./noInternet.html')
+        }
+    },500)
+</script>
 </html>
