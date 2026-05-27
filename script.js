@@ -490,21 +490,34 @@ prev.addEventListener('click', () => {
 
 
 //mobile  detection
-function getMobileOS() {
-  const deviceDetection = navigator.userAgent;
 
-  if (/android/i.test(deviceDetection)) {
-    return "Android";
-  }
-  if (/iPad|iPhone|iPod/.test(deviceDetection) && !window.MSStream) {
-    return "iOS";
-  }
-  return "Desktop/Other";
+function isPhone() {
+
+    // modern detection
+    if (navigator.userAgentData) {
+        if (navigator.userAgentData.mobile) {
+            return true;
+        }
+    }
+
+    // fallback
+    const ua = navigator.userAgent.toLowerCase();
+
+    const mobileUA = /android|iphone|ipad|ipod/i.test(ua);
+
+    const touch =
+        ('ontouchstart' in window) ||
+        (navigator.maxTouchPoints > 0);
+
+    const smallScreen = window.innerWidth < 900;
+
+    return mobileUA || (touch && smallScreen);
 }
 
-if(getMobileOS()==='Android' || getMobileOS()==='iOS'){
-  window.location.replace('/mobileDetection.html')
-} 
+if (isPhone()) {
+    window.location.href = "./mobileDetection.html";
+}
+
 
 
 
