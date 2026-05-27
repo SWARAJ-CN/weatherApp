@@ -163,7 +163,7 @@ body {
     to bottom,
     rgba(0, 0, 0, 0.1),
     rgba(0, 0, 0, 0.4)
-  ); /* Subtle gradient overlay to make text pop */
+  ); 
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -528,10 +528,7 @@ body {
   transform: scale(1.005);
 }
 
-/* toaday data and five days*/
-
 .today-card ,.Fday-card{
-  
   width: 100%;
   height: fit-content;
   display: flex;
@@ -572,7 +569,6 @@ body {
   display: block; 
 }
 
-
 .today-card::-webkit-scrollbar-track {
   background-color: rgba(255, 255, 255, 0.03); 
   border-radius: 10px;
@@ -588,7 +584,6 @@ body {
   background-color: rgba(255, 255, 255, 0.35); 
 }
 
-
 .heading {
   display: block;
   font-size: 1.1rem;
@@ -603,15 +598,10 @@ body {
   flex: 0 0 225px;
   padding: 16px;
   border-radius: 16px;
-  
-
   background: rgba(255, 255, 255, 0.04); 
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  
-
   border: 1px solid rgba(255, 255, 255, 0.08); 
-  
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -620,7 +610,6 @@ body {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, background 0.2s ease;
 }
-
 
 .weather-card:hover {
   background: rgba(255, 255, 255, 0.07);
@@ -639,7 +628,6 @@ body {
   flex-direction: column;
   gap: 4px;
 }
-
 
 .timeandcondition span:first-child {
   font-size: 0.85rem;
@@ -685,4 +673,77 @@ body {
   font-weight: 400; 
   text-align: end;
   line-height: 1;
+}
+
+/* ==========================================================================
+   NEW ADDITIONS: ADVANCED MEDIA QUERIES FOR FULL RESPONSIVENESS
+   ========================================================================== */
+
+/* Tablet & Smaller Desktop Adjustments (Max Width: 1024px) */
+@media screen and (max-width: 1024px) {
+  .speration-div {
+    height: auto; /* Let content determine the height instead of fixing dvh */
+    flex-direction: column; /* Stack left-side and right-side elements vertically */
+  }
+
+  .left-side, .right-side {
+    width: 100%; /* Take full width when stacked */
+    height: auto;
+  }
+  
+  .map {
+    height: 400px; /* Give the map frame an explicitly beautiful viewport height on layout stack */
+  }
+}
+
+/* Mobile Screen Adjustments (Max Width: 768px) */
+@media screen and (max-width: 768px) {
+  .top-section {
+    flex-direction: column; /* Stack branding title and search bar */
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .search-section {
+    width: 100%; /* Make search container stretch full-width on mobile */
+    justify-content: space-between;
+  }
+
+  .search-box {
+    width: 100%; /* Allow input box to dynamically shrink/grow safely */
+    flex: 1;
+  }
+
+  .search {
+    width: auto;
+    min-width: 80px;
+  }
+
+  .cel {
+    font-size: 7rem; /* Reduce the large background ambient Celsius text size slightly so it fits mobile */
+    right: 20px;
+  }
+
+  .image-container {
+    height: 320px; /* Shorten the hero display background container slightly on phones */
+  }
+}
+
+/* Extra Small Screens (Max Width: 480px) */
+@media screen and (max-width: 480px) {
+  .weather-from, .weather-condition, .wind-condition {
+    padding-left: 15px;
+    margin-left: 10px;
+    gap: 10px;
+  }
+  
+  .weather-location, .weather-country, .weather-condition, .wind-speed, .hpa-sts {
+    padding: 8px 16px; /* Trim inner element paddings slightly to avoid horizontal bleed out */
+    font-size: 0.9rem;
+  }
+
+  .cel {
+    font-size: 5.5rem; /* Make the stroke absolute Celsius font cleanly readable on small viewports */
+  }
 }
